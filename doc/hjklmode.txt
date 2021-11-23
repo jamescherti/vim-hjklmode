@@ -19,16 +19,22 @@ It will also allow you to use hjkl in all Vim modes:
 - hjkl in normal mode.
 - \<Alt\> + hjkl in Insert Mode, Command Mode, and Terminal Mode.
 
+Add the following variable to "~/.vimrc" if you wish to enable hjklmode by
+default:
+```
+let g:hjklmode_enabled = 1
+```
+
 ==============================================================================
 2. Hjklmode configuration                               *hjklmode-configuration*
 
 ------------------------------------------------------------------------------
 2.1 `g:hjklmode_enabled`                                      *g:hjklmode_enabled*
 
-When this option is set to 0, hjklmode is disabled.
+Hjklmode is enabled when this option is set to 1.
 
 Options: 0 (disabled) or 1 (enabled)
-Default: 1 (enabled)
+Default: 0 (disabled)
 
 ==============================================================================
 3. Hjklmode commands                                         *hjklmode-commands*
