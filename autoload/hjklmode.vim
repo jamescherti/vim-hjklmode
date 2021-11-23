@@ -26,6 +26,7 @@
 "              SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 let s:hjklmode_enabled = -1
+let s:hjklmode_key_mappings = []
 
 function! s:MapSetStatus(enable, buffer_only, mapping_mode, key_sequence1, key_sequence2) abort
   let l:mapping_cmd_name = a:enable ? 'noremap' : 'unmap'
@@ -57,35 +58,11 @@ function! s:HjklmodeSetStatus(enabled, buffer_only) abort
   endif
   let s:hjklmode_enabled = a:enabled ? 1 : 0
 
-  " The keys that should be disabled when hjklmode is enabled
-  let l:disable_keys = ['<Up>', '<Down>', '<Left>', '<Right>', '<PageUp>',
-    \                   '<PageDown>', '<Home>', '<Insert>', '<End>',
-    \                   '<Delete>', '<Backspace>']
-  if has('gui_running')
-    " Terminal emulators receive the character <Ctrl-[> when the user presses
-    " <Esc>. That is why <Esc> can only be disabled in GUI mode.
-    call add(l:disable_keys, '<Esc>')
+  if !exists('s:hjklmode_key_mappings')
+    return
   endif
 
-  let l:key_mappings = [
-    \  [['<C-[>'], '<Esc>', ['n', 'i', 'v', 't', 's']],
-    \  [['<C-[>'], '<C-c>', ['c']],
-    \
-    \  [l:disable_keys, '<Nop>', ['n', 'i', 'v', 't', 's', 'c']],
-    \  [['+', '-'], '<Nop>', ['n']],
-    \
-    \  [['<A-h>'], '<Left>', ['i']],
-    \  [['<expr> <A-j>'], 'pumvisible() ? "<C-n>" : "<Down>"', ['i']],
-    \  [['<expr> <A-k>'], 'pumvisible() ? "<C-p>" : "<Up>"', ['i']],
-    \  [['<A-l>'], '<Right>', ['i']],
-    \
-    \  [['<A-h>'], '<Left>', ['c', 't']],
-    \  [['<A-j>'], '<Down>', ['c', 't']],
-    \  [['<A-k>'], '<Up>', ['c', 't']],
-    \  [['<A-l>'], '<Right>', ['c', 't']]
-    \]
-
-  for l:key_mappings_item in l:key_mappings
+  for l:key_mappings_item in s:hjklmode_key_mappings
     for l:mapping_mode in l:key_mappings_item[2]
       for l:key_sequence1 in l:key_mappings_item[0]
         let l:key_sequence2 = l:key_mappings_item[1]
@@ -123,4 +100,36 @@ function! hjklmode#Toggle()
   else
     call hjklmode#Enable()
   endif
+endfunction
+
+function! hjklmode#Init() abort
+  let l:disable_keys = ['<Up>', '<Down>', '<Left>', '<Right>', '<PageUp>',
+    \                   '<PageDown>', '<Home>', '<Insert>', '<End>',
+    \                   '<Delete>', '<Backspace>']
+
+  if has('gui_running')
+    " Terminal emulators receive the character <Ctrl-[> when the user presses
+    " <Esc>. That is why <Esc> can only be disabled in GUI mode.
+    call add(l:disable_keys, '<Esc>')
+  endif
+
+  let s:hjklmode_key_mappings = [
+    \  [['<C-[>'], '<Esc>', ['n', 'i', 'v', 't', 's']],
+    \  [['<C-[>'], '<C-c>', ['c']],
+    \
+    \  [l:disable_keys, '<Nop>', ['n', 'i', 'v', 't', 's', 'c']],
+    \  [['+', '-'], '<Nop>', ['n']],
+    \
+    \  [['<A-h>'], '<Left>', ['i']],
+    \  [['<expr> <A-j>'], 'pumvisible() ? "<C-n>" : "<Down>"', ['i']],
+    \  [['<expr> <A-k>'], 'pumvisible() ? "<C-p>" : "<Up>"', ['i']],
+    \  [['<A-l>'], '<Right>', ['i']],
+    \
+    \  [['<A-h>'], '<Left>', ['c', 't']],
+    \  [['<A-j>'], '<Down>', ['c', 't']],
+    \  [['<A-k>'], '<Up>', ['c', 't']],
+    \  [['<A-l>'], '<Right>', ['c', 't']]
+    \]
+
+  return s:hjklmode_key_mappings
 endfunction
