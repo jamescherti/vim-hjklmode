@@ -82,7 +82,7 @@ function! s:HjklmodeSetStatus(enabled, buffer_only) abort
 
   for l:mapping_mode in ['n', 'i', 'v', 't', 's', 'c']
     for l:key in l:disable_keys
-      call s:MapSetStatus(a:enabled, a:buffer_only, l:mapping_mode, l:key, '<Esc>')
+      call s:MapSetStatus(a:enabled, a:buffer_only, l:mapping_mode, l:key, '<Nop>')
     endfor
   endfor
 
