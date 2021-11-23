@@ -62,20 +62,28 @@ function! s:HjklmodeSetStatus(enabled, buffer_only) abort
     return
   endif
 
+  for l:item in hjklmode#get_key_mappings()
+    call s:MapSetStatus(
+      \  a:enabled,
+      \  a:buffer_only,
+      \  l:item['mapping_mode'],
+      \  l:item['key_sequence1'],
+      \  l:item['key_sequence2']
+      \)
+  endfor
+endfunction
+
+function! hjklmode#get_key_mappings() abort
+  let result = []
   for l:key_mappings_item in s:hjklmode_key_mappings
     for l:mapping_mode in l:key_mappings_item[2]
       for l:key_sequence1 in l:key_mappings_item[0]
         let l:key_sequence2 = l:key_mappings_item[1]
-        call s:MapSetStatus(
-          \  a:enabled,
-          \  a:buffer_only,
-          \  l:mapping_mode,
-          \  l:key_sequence1,
-          \  l:key_sequence2
-          \)
+        call add(result, {'mapping_mode': l:mapping_mode, 'key_sequence1': l:key_sequence1, 'key_sequence2': l:key_sequence2})
       endfor
     endfor
   endfor
+  return result
 endfunction
 
 function! hjklmode#Enable()
