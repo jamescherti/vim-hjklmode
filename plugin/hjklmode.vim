@@ -31,10 +31,10 @@ endif
 let g:loaded_hjklmode = 1
 
 if ! exists('g:hjklmode_enabled')
-  let g:hjklmode_enabled = 1
+  let g:hjklmode_enabled = 0
 endif
 
-command! -nargs=0 HjklmodeStatus echo hjklmode#IsEnabled() ? 'Hjklmode is enabled.' : 'Hjklmode is disabled.'
+command! -nargs=0 HjklmodeStatus echo hjklmode#IsEnabled() ? 'Enabled' : 'Disabled'
 
 command! -nargs=0 HjklmodeToggle call hjklmode#Toggle() | HjklmodeStatus
 

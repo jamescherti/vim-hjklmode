@@ -20,6 +20,27 @@ Distributed under terms of the MIT license.
 
 Please [star hjklmode.vim on GitHub](https://github.com/jamescherti/hjklmode.vim).
 
+## Installation
+
+### Installation with Vim's built-in package manager (Vim 8 and above)
+
+```bash
+mkdir -p ~/.vim/pack/jamescherti/start
+cd ~/.vim/pack/jamescherti/start
+git clone --depth 1 https://github.com/jamescherti/hjklmode.vim
+vim -u NONE -c "helptags hjklmode.vim/doc" -c q
+```
+
+### Installation with a third-party plugin manager
+
+You can also install this Vim plugin with any third-party plugin manager such as Pathogen or Vundle.
+
+## How to enable hjklmode by default?
+Add the following variable to "~/.vimrc":
+```
+let g:hjklmode_enabled = 1
+```
+
 ## How can I move the cursor, press Escape or Backspace when hjklmode.vim is enabled?
 
 | Key mapping  | Equivalent to
@@ -38,18 +59,3 @@ Please [star hjklmode.vim on GitHub](https://github.com/jamescherti/hjklmode.vim
 For more information:
 - :help motion.txt
 - :help search-commands
-
-## Installation
-
-### Installation with Vim's built-in package manager (Vim 8 and above)
-
-```bash
-mkdir -p ~/.vim/pack/jamescherti/start
-cd ~/.vim/pack/jamescherti/start
-git clone --depth 1 https://github.com/jamescherti/hjklmode.vim
-vim -u NONE -c "helptags hjklmode.vim/doc" -c q
-```
-
-### Installation with a third-party plugin manager
-
-You can also install this Vim plugin with any third-party plugin manager such as Pathogen or Vundle.
