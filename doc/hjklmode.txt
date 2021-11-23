@@ -18,3 +18,27 @@ presses <Esc>).
 It will also allow you to use hjkl in all Vim modes:
 - hjkl in normal mode.
 - \<Alt\> + hjkl in Insert Mode, Command Mode, and Terminal Mode.
+
+==============================================================================
+2. Hjklmode configuration                               *hjklmode-configuration*
+
+------------------------------------------------------------------------------
+2.1 `g:hjklmode_enabled`                                      *g:hjklmode_enabled*
+
+When this option is set to 0, hjklmode is disabled.
+
+Options: 0 (disabled) or 1 (enabled)
+Default: 1 (enabled)
+
+==============================================================================
+3. Hjklmode commands                                         *hjklmode-commands*
+
+Enable or disable hjklmode:
+:HjklmodeEnable
+:HjklmodeDisable
+
+Show the hjklmode status (enabled or disabled):
+:HjklmodeStatus
+
+Switch between HjklmodeEnable and HjklmodeDisable:
+:HjklmodeSwitch
