@@ -2,9 +2,9 @@
 " Description: Hjkl navigation in all Vim modes.
 "
 " Maintainer:  James Cherti
-" URL:         https://github.com/jamescherti/vim-hjklmode
+" URL:         https://github.com/jamescherti/hjklmode.vim
 "
-" Licence:     Copyright (c) 2021 James Cherti
+" Licence:     Copyright (c) James Cherti
 "              Distributed under terms of the MIT license.
 "
 "              Permission is hereby granted, free of charge, to any person

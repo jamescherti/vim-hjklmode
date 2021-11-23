@@ -1,13 +1,13 @@
 *hjklmode.txt*    Hjkl navigation in all Vim modes.
 
 Author:         James Cherti <https://www.jamescherti.com>
-Git repository: https://github.com/jamescherti/vim-hjklmode
+Git repository: https://github.com/jamescherti/hjklmode.vim
 License:        MIT
 
 ==============================================================================
 1. Introduction                                          *hjklmode-introduction*
 
-The Vim plugin hjklmode.vim will help you to break the habit of using the keys
+The Vim plugin hjklmode will help you to break the habit of using the keys
 that make you move your hand away from the touch type position.
 
 It will disable the keys: Backspace, +, -, Insert, Delete, Home, End, Page Up
