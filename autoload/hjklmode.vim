@@ -115,7 +115,7 @@ function! hjklmode#IsEnabled()
   return s:hjklmode_enabled
 endfunction
 
-function! hjklmode#Switch()
+function! hjklmode#Toggle()
   if hjklmode#IsEnabled()
     call hjklmode#Disable()
   else

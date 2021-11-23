@@ -40,5 +40,5 @@ Enable or disable hjklmode:
 Show the hjklmode status (enabled or disabled):
 :HjklmodeStatus
 
-Switch between HjklmodeEnable and HjklmodeDisable:
-:HjklmodeSwitch
+Toggle between HjklmodeEnable and HjklmodeDisable:
+:HjklmodeToggle

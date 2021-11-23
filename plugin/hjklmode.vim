@@ -36,7 +36,7 @@ endif
 
 command! -nargs=0 HjklmodeStatus echo hjklmode#IsEnabled() ? 'Hjklmode is enabled.' : 'Hjklmode is disabled.'
 
-command! -nargs=0 HjklmodeSwitch call hjklmode#Switch() | HjklmodeStatus
+command! -nargs=0 HjklmodeToggle call hjklmode#Toggle() | HjklmodeStatus
 
 command! -nargs=0 HjklmodeEnable call hjklmode#Enable() | HjklmodeStatus
 command! -nargs=0 HjklmodeDisable call hjklmode#Disable() | HjklmodeStatus
