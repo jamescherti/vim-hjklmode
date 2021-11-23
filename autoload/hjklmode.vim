@@ -59,42 +59,44 @@ function! s:HjklmodeSetStatus(enabled, buffer_only) abort
 
   " The keys that should be disabled when hjklmode is enabled
   let l:disable_keys = ['<Up>', '<Down>', '<Left>', '<Right>', '<PageUp>',
-  \                     '<PageDown>', '<Home>', '<Insert>', '<End>',
-  \                     '<Delete>', '<Backspace>']
-
+    \                   '<PageDown>', '<Home>', '<Insert>', '<End>',
+    \                   '<Delete>', '<Backspace>']
   if has('gui_running')
     " Terminal emulators receive the character <Ctrl-[> when the user presses
     " <Esc>. That is why <Esc> can only be disabled in GUI mode.
     call add(l:disable_keys, '<Esc>')
-
-    " Map <C-[> to <Esc> (it has to be done before <Esc> is mapped to <Nop>).
-    for l:mapping_mode in ['n', 'i', 'v', 't', 's']
-      call s:MapSetStatus(a:enabled, a:buffer_only, l:mapping_mode, '<C-[>', '<Esc>')
-    endfor
-
-    " Special case for command mode
-    call s:MapSetStatus(a:enabled, a:buffer_only, 'c', '<C-[>', '<C-c>')
   endif
 
-  " Disable keys
-  call s:MapSetStatus(a:enabled, a:buffer_only, 'n', '+', '<Nop>')
-  call s:MapSetStatus(a:enabled, a:buffer_only, 'n', '-', '<Nop>')
+  let l:key_mappings = [
+    \  [['<C-[>'], '<Esc>', ['n', 'i', 'v', 't', 's']],
+    \  [['<C-[>'], '<C-c>', ['c']],
+    \
+    \  [l:disable_keys, '<Nop>', ['n', 'i', 'v', 't', 's', 'c']],
+    \  [['+', '-'], '<Nop>', ['n']],
+    \
+    \  [['<A-h>'], '<Left>', ['i']],
+    \  [['<expr> <A-j>'], 'pumvisible() ? "<C-n>" : "<Down>"', ['i']],
+    \  [['<expr> <A-k>'], 'pumvisible() ? "<C-p>" : "<Up>"', ['i']],
+    \  [['<A-l>'], '<Right>', ['i']],
+    \
+    \  [['<A-h>'], '<Left>', ['c', 't']],
+    \  [['<A-j>'], '<Down>', ['c', 't']],
+    \  [['<A-k>'], '<Up>', ['c', 't']],
+    \  [['<A-l>'], '<Right>', ['c', 't']]
+    \]
 
-  for l:mapping_mode in ['n', 'i', 'v', 't', 's', 'c']
-    for l:key in l:disable_keys
-      call s:MapSetStatus(a:enabled, a:buffer_only, l:mapping_mode, l:key, '<Nop>')
-    endfor
-  endfor
-
-  " Add <Alt> + "hjkl" navigation to Insert Mode, Command Mode and Terminal Mode
-  call s:MapSetStatus(a:enabled, a:buffer_only, 'i', '<A-h>', '<Left>')
-  call s:MapSetStatus(a:enabled, a:buffer_only, 'i', '<expr> <A-j>', 'pumvisible() ? "<C-n>" : "<Down>"')
-  call s:MapSetStatus(a:enabled, a:buffer_only, 'i', '<expr> <A-k>', 'pumvisible() ? "<C-p>" : "<Up>"')
-  call s:MapSetStatus(a:enabled, a:buffer_only, 'i', '<A-l>', '<Right>')
-
-  for l:mapping_mode in ['c', 't']
-    for l:key_mapping in [['<A-h>', '<Left>'], ['<A-j>', '<Down>'], ['<A-k>', '<Up>'], ['<A-l>', '<Right>']]
-      call s:MapSetStatus(a:enabled, a:buffer_only, l:mapping_mode, l:key_mapping[0], l:key_mapping[1])
+  for l:key_mappings_item in l:key_mappings
+    for l:mapping_mode in l:key_mappings_item[2]
+      for l:key_sequence1 in l:key_mappings_item[0]
+        let l:key_sequence2 = l:key_mappings_item[1]
+        call s:MapSetStatus(
+          \  a:enabled,
+          \  a:buffer_only,
+          \  l:mapping_mode,
+          \  l:key_sequence1,
+          \  l:key_sequence2
+          \)
+      endfor
     endfor
   endfor
 endfunction
