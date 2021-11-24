@@ -28,14 +28,14 @@
 let s:hjklmode_enabled = -1
 let s:hjklmode_key_mappings = []
 
-function! s:MapSetStatus(enable, buffer_only, mapping_mode, key_sequence1, key_sequence2) abort
-  let l:mapping_cmd_name = a:enable ? 'noremap' : 'unmap'
+function! s:MapSetStatus(enabled, buffer_only, mapping_mode, key_sequence1, key_sequence2) abort
+  let l:mapping_cmd_name = a:enabled ? 'noremap' : 'unmap'
   if a:buffer_only
     let l:mapping_cmd_name .= ' <buffer>'
   endif
 
   let l:mapping_cmd = ''
-  if a:enable
+  if a:enabled
     let l:mapping_cmd = a:mapping_mode . l:mapping_cmd_name . ' ' . a:key_sequence1 . ' ' . a:key_sequence2
   else
     if !empty(maparg(a:key_sequence1, a:mapping_mode))
@@ -58,11 +58,13 @@ function! s:HjklmodeSetStatus(enabled, buffer_only) abort
   endif
   let s:hjklmode_enabled = a:enabled ? 1 : 0
 
-  if !exists('s:hjklmode_key_mappings')
-    return
+  if exists('s:hjklmode_key_mappings')
+    let l:key_mappings = hjklmode#GetKeyMappings()
+  else
+    let l:key_mappings = []
   endif
 
-  for l:item in hjklmode#get_key_mappings()
+  for l:item in l:key_mappings
     call s:MapSetStatus(
       \  a:enabled,
       \  a:buffer_only,
@@ -73,7 +75,7 @@ function! s:HjklmodeSetStatus(enabled, buffer_only) abort
   endfor
 endfunction
 
-function! hjklmode#get_key_mappings() abort
+function! hjklmode#GetKeyMappings() abort
   let result = []
   for l:key_mappings_item in s:hjklmode_key_mappings
     for l:mapping_mode in l:key_mappings_item[2]
@@ -99,7 +101,12 @@ function! hjklmode#Disable()
 endfunction
 
 function! hjklmode#IsEnabled()
-  return s:hjklmode_enabled
+  if s:hjklmode_enabled <= 0
+    let l:is_enabled = 0
+  else
+    let l:is_enabled = 1
+  endif
+  return l:is_enabled
 endfunction
 
 function! hjklmode#Toggle()
