@@ -1,8 +1,8 @@
 " Name:        hjklmode.vim
-" Description: Hjkl navigation in all Vim modes.
+" Description: Learn Hjkl navigation!
 "
 " Maintainer:  James Cherti
-" URL:         https://github.com/jamescherti/hjklmode.vim
+" URL:         https://github.com/jamescherti/vim-hjklmode
 "
 " Licence:     Copyright (c) James Cherti
 "              Distributed under terms of the MIT license.

@@ -1,7 +1,7 @@
-*hjklmode.txt*    Hjkl navigation in all Vim modes.
+*hjklmode.txt*    Learn Hjkl navigation!
 
 Author:         James Cherti <https://www.jamescherti.com>
-Git repository: https://github.com/jamescherti/hjklmode.vim
+Git repository: https://github.com/jamescherti/vim-hjklmode
 License:        MIT
 
 ==============================================================================
@@ -17,8 +17,9 @@ for <Ctrl-[> / <Esc> and <Ctrl-H> / <Backspace>)
 
 It will also allow you to use hjkl in all Vim modes:
 - hjkl in normal mode.
-- \<Alt\> + hjkl in Insert Mode, Command Mode, and Terminal Mode (only
-  supported in Vim GUI mode).
+- <Alt> + hjkl in Insert Mode, Command Mode, and Terminal Mode (it works in
+  Vim GUI mode but not always when Vim is executed in a terminal. Make sure
+  the terminal does not grab the <Alt> key).
 
 Add the following variable to "~/.vimrc" if you wish to enable hjklmode by
 default:

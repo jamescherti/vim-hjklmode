@@ -1,8 +1,8 @@
 " Name:        hjklmode.vim
-" Description: Hjkl navigation in all Vim modes.
+" Description: Learn Hjkl navigation!
 "
 " Maintainer:  James Cherti
-" URL:         https://github.com/jamescherti/hjklmode.vim
+" URL:         https://github.com/jamescherti/vim-hjklmode
 "
 " Licence:     Copyright (c) James Cherti
 "              Distributed under terms of the MIT license.
@@ -138,18 +138,21 @@ function! hjklmode#Init() abort
     " same characters when Vim is executed in a terminal.
     call add(l:key_mappings, [['<C-[>'], '<Esc>', ['n', 'i', 'v', 't', 's']])
     call add(l:key_mappings, [['<C-[>'], '<C-c>', ['c']])
-    call add(l:key_mappings, [['<Backspace>'] , '<Nop>', l:all_modes])
     call add(l:key_mappings, [['<Esc>'], '<Nop>', l:all_modes])
   endif
+
+  call add(l:key_mappings, [['<Backspace>'] , '<Nop>', l:all_modes])
 
   " Disable mappings
   call add(l:key_mappings, [['<PageUp>', '<PageDown>', '<Home>', '<Insert>', '<End>', '<Delete>'] , '<Nop>', l:all_modes])
   call add(l:key_mappings, [['<Up>', '<Down>', '<Left>', '<Right>'], '<Nop>', ['n', 'v']])
+
   if has('gui_running')
-    " Because the key mappings <Alt> + hjkl don't work when Vim is executed in
-    " a terminal.
+    " Because the key mappings <Alt> + hjkl do not work when Vim is executed
+    " in a terminal.
     call add(l:key_mappings, [['<Up>', '<Down>', '<Left>', '<Right>'], '<Nop>', ['i', 't', 's', 'c']])
   endif
+
   call add(l:key_mappings, [['<Up>', '<Down>', '<Left>', '<Right>'], '<Nop>', ['n', 'v']])
   call add(l:key_mappings, [['+', '-'], '<Nop>', ['n']])
 
