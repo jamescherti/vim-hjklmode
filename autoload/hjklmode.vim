@@ -118,32 +118,41 @@ function! hjklmode#Toggle()
 endfunction
 
 function! hjklmode#Init() abort
-  let l:disable_keys_all_modes = ['<PageUp>', '<PageDown>', '<Home>',
-        \                         '<Insert>', '<End>', '<Delete>',
-        \                         '<Backspace>']
   let l:all_modes = ['n', 'i', 'v', 't', 's', 'c']
 
   let l:key_mappings = []
-  if has('gui_running')
-    call add(s:hjklmode_key_mappings, [['<C-[>'], '<Esc>', ['n', 'i', 'v', 't', 's']])
-    call add(s:hjklmode_key_mappings, [['<C-[>'], '<C-c>', ['c']])
-    call add(s:hjklmode_key_mappings, [l:disable_keys_all_modes, '<Nop>', l:all_modes])
-    call add(s:hjklmode_key_mappings, ['<Esc>', '<Nop>', ['n', 'i', 'v', 't', 's', 'c']])
-    call add(s:hjklmode_key_mappings, [['<Up>', '<Down>', '<Left>', '<Right>'], '<Nop>', l:all_modes])
-  else
-    " remove console
-    call add(s:hjklmode_key_mappings, [['<Up>', '<Down>', '<Left>', '<Right>'], '<Nop>', ['n', 'i', 'v', 't', 's']])
-  endif
-  call add(s:hjklmode_key_mappings, [['+', '-'], '<Nop>', ['n']])
-  call add(s:hjklmode_key_mappings, [['<A-h>'], '<Left>', ['i']])
-  call add(s:hjklmode_key_mappings, [['<expr> <A-j>'], 'pumvisible() ? "<C-n>" : "<Down>"', ['i']])
-  call add(s:hjklmode_key_mappings, [['<expr> <A-k>'], 'pumvisible() ? "<C-p>" : "<Up>"', ['i']])
-  call add(s:hjklmode_key_mappings, [['<A-l>'], '<Right>', ['i']])
-  call add(s:hjklmode_key_mappings, [['<A-h>'], '<Left>', ['c', 't']])
-  call add(s:hjklmode_key_mappings, [['<A-j>'], '<Down>', ['c', 't']])
-  call add(s:hjklmode_key_mappings, [['<A-k>'], '<Up>', ['c', 't']])
-  call add(s:hjklmode_key_mappings, [['<A-l>'], '<Right>', ['c', 't']])
 
-  " let s:hjklmode_key_mappings = l:key_mappings
+  call add(l:key_mappings, [['<A-h>'], '<Left>', ['i']])
+  call add(l:key_mappings, [['<expr> <A-j>'], 'pumvisible() ? "<C-n>" : "<Down>"', ['i']])
+  call add(l:key_mappings, [['<expr> <A-k>'], 'pumvisible() ? "<C-p>" : "<Up>"', ['i']])
+  call add(l:key_mappings, [['<A-l>'], '<Right>', ['i']])
+
+  call add(l:key_mappings, [['<A-h>'], '<Left>', ['c', 't']])
+  call add(l:key_mappings, [['<A-j>'], '<Down>', ['c', 't']])
+  call add(l:key_mappings, [['<A-k>'], '<Up>', ['c', 't']])
+  call add(l:key_mappings, [['<A-l>'], '<Right>', ['c', 't']])
+
+  " Escape and Backspace
+  if has('gui_running')
+    " Only when gui_running because Backspace/Ctrl-H and Escape/Ctrl-[ are the
+    " same characters when Vim is executed in a terminal.
+    call add(l:key_mappings, [['<C-[>'], '<Esc>', ['n', 'i', 'v', 't', 's']])
+    call add(l:key_mappings, [['<C-[>'], '<C-c>', ['c']])
+    call add(l:key_mappings, [['<Backspace>'] , '<Nop>', l:all_modes])
+    call add(l:key_mappings, [['<Esc>'], '<Nop>', l:all_modes])
+  endif
+
+  " Disable mappings
+  call add(l:key_mappings, [['<PageUp>', '<PageDown>', '<Home>', '<Insert>', '<End>', '<Delete>'] , '<Nop>', l:all_modes])
+  call add(l:key_mappings, [['<Up>', '<Down>', '<Left>', '<Right>'], '<Nop>', ['n', 'v']])
+  if has('gui_running')
+    " Because the key mappings <Alt> + hjkl don't work when Vim is executed in
+    " a terminal.
+    call add(l:key_mappings, [['<Up>', '<Down>', '<Left>', '<Right>'], '<Nop>', ['i', 't', 's', 'c']])
+  endif
+  call add(l:key_mappings, [['<Up>', '<Down>', '<Left>', '<Right>'], '<Nop>', ['n', 'v']])
+  call add(l:key_mappings, [['+', '-'], '<Nop>', ['n']])
+
+  let s:hjklmode_key_mappings = l:key_mappings
   return s:hjklmode_key_mappings
 endfunction
