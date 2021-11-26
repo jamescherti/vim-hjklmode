@@ -118,33 +118,32 @@ function! hjklmode#Toggle()
 endfunction
 
 function! hjklmode#Init() abort
-  let l:disable_keys = ['<Up>', '<Down>', '<Left>', '<Right>', '<PageUp>',
-    \                   '<PageDown>', '<Home>', '<Insert>', '<End>',
-    \                   '<Delete>', '<Backspace>']
+  let l:disable_keys_all_modes = ['<PageUp>', '<PageDown>', '<Home>',
+        \                         '<Insert>', '<End>', '<Delete>',
+        \                         '<Backspace>']
+  let l:all_modes = ['n', 'i', 'v', 't', 's', 'c']
 
+  let l:key_mappings = []
   if has('gui_running')
-    " Terminal emulators receive the character <Ctrl-[> when the user presses
-    " <Esc>. That is why <Esc> can only be disabled in GUI mode.
-    call add(l:disable_keys, '<Esc>')
+    call add(s:hjklmode_key_mappings, [['<C-[>'], '<Esc>', ['n', 'i', 'v', 't', 's']])
+    call add(s:hjklmode_key_mappings, [['<C-[>'], '<C-c>', ['c']])
+    call add(s:hjklmode_key_mappings, [l:disable_keys_all_modes, '<Nop>', l:all_modes])
+    call add(s:hjklmode_key_mappings, ['<Esc>', '<Nop>', ['n', 'i', 'v', 't', 's', 'c']])
+    call add(s:hjklmode_key_mappings, [['<Up>', '<Down>', '<Left>', '<Right>'], '<Nop>', l:all_modes])
+  else
+    " remove console
+    call add(s:hjklmode_key_mappings, [['<Up>', '<Down>', '<Left>', '<Right>'], '<Nop>', ['n', 'i', 'v', 't', 's']])
   endif
+  call add(s:hjklmode_key_mappings, [['+', '-'], '<Nop>', ['n']])
+  call add(s:hjklmode_key_mappings, [['<A-h>'], '<Left>', ['i']])
+  call add(s:hjklmode_key_mappings, [['<expr> <A-j>'], 'pumvisible() ? "<C-n>" : "<Down>"', ['i']])
+  call add(s:hjklmode_key_mappings, [['<expr> <A-k>'], 'pumvisible() ? "<C-p>" : "<Up>"', ['i']])
+  call add(s:hjklmode_key_mappings, [['<A-l>'], '<Right>', ['i']])
+  call add(s:hjklmode_key_mappings, [['<A-h>'], '<Left>', ['c', 't']])
+  call add(s:hjklmode_key_mappings, [['<A-j>'], '<Down>', ['c', 't']])
+  call add(s:hjklmode_key_mappings, [['<A-k>'], '<Up>', ['c', 't']])
+  call add(s:hjklmode_key_mappings, [['<A-l>'], '<Right>', ['c', 't']])
 
-  let s:hjklmode_key_mappings = [
-    \  [['<C-[>'], '<Esc>', ['n', 'i', 'v', 't', 's']],
-    \  [['<C-[>'], '<C-c>', ['c']],
-    \
-    \  [l:disable_keys, '<Nop>', ['n', 'i', 'v', 't', 's', 'c']],
-    \  [['+', '-'], '<Nop>', ['n']],
-    \
-    \  [['<A-h>'], '<Left>', ['i']],
-    \  [['<expr> <A-j>'], 'pumvisible() ? "<C-n>" : "<Down>"', ['i']],
-    \  [['<expr> <A-k>'], 'pumvisible() ? "<C-p>" : "<Up>"', ['i']],
-    \  [['<A-l>'], '<Right>', ['i']],
-    \
-    \  [['<A-h>'], '<Left>', ['c', 't']],
-    \  [['<A-j>'], '<Down>', ['c', 't']],
-    \  [['<A-k>'], '<Up>', ['c', 't']],
-    \  [['<A-l>'], '<Right>', ['c', 't']]
-    \]
-
+  " let s:hjklmode_key_mappings = l:key_mappings
   return s:hjklmode_key_mappings
 endfunction
