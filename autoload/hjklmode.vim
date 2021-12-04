@@ -28,27 +28,32 @@
 let s:hjklmode_enabled = -1
 let s:hjklmode_key_mappings = []
 
-function! s:MapSetStatus(enabled, buffer_only, mapping_mode, key_sequence1, key_sequence2) abort
-  let l:mapping_cmd_name = a:enabled ? 'noremap' : 'unmap'
-  if a:buffer_only
-    let l:mapping_cmd_name .= ' <buffer>'
-  endif
+function! hjklmode#Enable()
+  let l:enabled = 1
+  let l:buffer_only = 0
+  call s:HjklmodeSetStatus(l:enabled, l:buffer_only)
+endfunction
 
-  let l:mapping_cmd = ''
-  if a:enabled
-    let l:mapping_cmd = a:mapping_mode . l:mapping_cmd_name . ' ' . a:key_sequence1 . ' ' . a:key_sequence2
+function! hjklmode#Disable()
+  let l:enabled = 0
+  let l:buffer_only = 0
+  call s:HjklmodeSetStatus(l:enabled, l:buffer_only)
+endfunction
+
+function! hjklmode#IsEnabled()
+  if s:hjklmode_enabled <= 0
+    let l:is_enabled = 0
   else
-    if !empty(maparg(a:key_sequence1, a:mapping_mode))
-      let l:mapping_cmd = a:mapping_mode . l:mapping_cmd_name . l:mapping_cmd . ' ' . a:key_sequence1
-    endif
+    let l:is_enabled = 1
   endif
+  return l:is_enabled
+endfunction
 
-  if l:mapping_cmd !=# ''
-    try
-      execute 'silent! ' . l:mapping_cmd
-    catch
-      echomsg 'hjklmode: mapping error: ' . l:mapping_cmd
-    endtry
+function! hjklmode#Toggle()
+  if hjklmode#IsEnabled()
+    call hjklmode#Disable()
+  else
+    call hjklmode#Enable()
   endif
 endfunction
 
@@ -88,32 +93,27 @@ function! hjklmode#GetKeyMappings() abort
   return result
 endfunction
 
-function! hjklmode#Enable()
-  let l:enabled = 1
-  let l:buffer_only = 0
-  call s:HjklmodeSetStatus(l:enabled, l:buffer_only)
-endfunction
-
-function! hjklmode#Disable()
-  let l:enabled = 0
-  let l:buffer_only = 0
-  call s:HjklmodeSetStatus(l:enabled, l:buffer_only)
-endfunction
-
-function! hjklmode#IsEnabled()
-  if s:hjklmode_enabled <= 0
-    let l:is_enabled = 0
-  else
-    let l:is_enabled = 1
+function! s:MapSetStatus(enabled, buffer_only, mapping_mode, key_sequence1, key_sequence2) abort
+  let l:mapping_cmd_name = a:enabled ? 'noremap' : 'unmap'
+  if a:buffer_only
+    let l:mapping_cmd_name .= ' <buffer>'
   endif
-  return l:is_enabled
-endfunction
 
-function! hjklmode#Toggle()
-  if hjklmode#IsEnabled()
-    call hjklmode#Disable()
+  let l:mapping_cmd = ''
+  if a:enabled
+    let l:mapping_cmd = a:mapping_mode . l:mapping_cmd_name . ' ' . a:key_sequence1 . ' ' . a:key_sequence2
   else
-    call hjklmode#Enable()
+    if !empty(maparg(a:key_sequence1, a:mapping_mode))
+      let l:mapping_cmd = a:mapping_mode . l:mapping_cmd_name . l:mapping_cmd . ' ' . a:key_sequence1
+    endif
+  endif
+
+  if l:mapping_cmd !=# ''
+    try
+      execute 'silent! ' . l:mapping_cmd
+    catch
+      echomsg 'hjklmode: mapping error: ' . l:mapping_cmd
+    endtry
   endif
 endfunction
 
@@ -134,8 +134,8 @@ function! hjklmode#Init() abort
 
   " Escape and Backspace
   if has('gui_running')
-    " Only when gui_running because Backspace/Ctrl-H and Escape/Ctrl-[ are the
-    " same characters when Vim is executed in a terminal.
+    " Only when gui_running because Escape/Ctrl-[ are the same characters when
+    " Vim is executed in a terminal.
     call add(l:key_mappings, [['<C-[>'], '<Esc>', ['n', 'i', 'v', 't', 's']])
     call add(l:key_mappings, [['<C-[>'], '<C-c>', ['c']])
     call add(l:key_mappings, [['<Esc>'], '<Nop>', l:all_modes])

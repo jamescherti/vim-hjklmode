@@ -13,7 +13,7 @@ that make you move your hand away from the touch type position.
 It will disable the keys: Backspace, +, -, Insert, Delete, Home, End, Page Up
 and Page Down, Arrows, and Escape (Backspace and Escape keys will only be
 disabled in Vim GUI mode because terminal emulators receive the same character
-for <Ctrl-[> / <Esc> and <Ctrl-H> / <Backspace>)
+for <Ctrl-[> and <Esc>).
 
 It will also allow you to use hjkl in all Vim modes:
 - hjkl in normal mode.

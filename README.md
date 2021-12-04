@@ -2,9 +2,9 @@
 
 ## Introduction
 
-The Vim plugin hjklmode.vim will help you to **break the habit** of using the keys that make you move your hand away from the touch type position.
+The Vim plugin hjklmode will help you to **break the habit** of using the keys that make you move your hand away from the touch type position.
 
-It will disable the keys: Backspace, +, -, Insert, Delete, Home, End, Page Up and Page Down, Arrows and Escape (Backspace and Escape keys will only be disabled in Vim GUI mode because terminal emulators receive the same character for \<Ctrl-[> / \<Esc> and \<Ctrl-H> / \<Backspace>).
+It will disable the keys: Backspace, +, -, Insert, Delete, Home, End, Page Up and Page Down, Arrows and Escape (Backspace and Escape keys will only be disabled in Vim GUI mode because terminal emulators receive the same character for \<Ctrl-[> and \<Esc>).
 
 It will also allow you to use hjkl navigation in all Vim modes:
 - **hjkl** in normal mode.
@@ -16,9 +16,9 @@ Copyright (c) [James Cherti](https://www.jamescherti.com).
 
 Distributed under terms of the MIT license.
 
-## Do you like hjklmode.vim?
+## Do you like hjklmode?
 
-Please [star hjklmode.vim on GitHub](https://github.com/jamescherti/vim-hjklmode).
+Please [star vim-hjklmode on GitHub](https://github.com/jamescherti/vim-hjklmode).
 
 ## Installation
 
@@ -41,7 +41,12 @@ Add the following variable to "~/.vimrc":
 let g:hjklmode_enabled = 1
 ```
 
-## How can I move the cursor, press Escape or Backspace when hjklmode.vim is enabled?
+## How to enable hjklmode manually?
+```viml
+:HjklmodeEnable
+```
+
+## How can I move the cursor, press Escape or Backspace when hjklmode is enabled?
 
 Vim key mappings:
 | Key mapping  | Equivalent to
