@@ -35,7 +35,6 @@ if ! exists('g:hjklmode_enabled')
 endif
 
 " Init
-call hjklmode#Init()
 if g:hjklmode_enabled
   call hjklmode#Enable()
 endif

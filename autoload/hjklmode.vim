@@ -133,9 +133,9 @@ function! hjklmode#Init() abort
   call add(l:key_mappings, [['<A-l>'], '<Right>', ['c', 't']])
 
   " Escape and Backspace
-  if has('gui_running')
+  if has('gui_running') && !has('win32')
     " Only when gui_running because Escape/Ctrl-[ are the same characters when
-    " Vim is executed in a terminal.
+    " Vim is executed in a terminal or on Microsoft Windows.
     call add(l:key_mappings, [['<C-[>'], '<Esc>', ['n', 'i', 'v', 't', 's']])
     call add(l:key_mappings, [['<C-[>'], '<C-c>', ['c']])
     call add(l:key_mappings, [['<Esc>'], '<Nop>', l:all_modes])

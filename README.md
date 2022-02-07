@@ -4,17 +4,11 @@
 
 The Vim plugin hjklmode will help you to **break the habit** of using the keys that make you move your hand away from the touch type position.
 
-It will disable the keys: Backspace, +, -, Insert, Delete, Home, End, Page Up and Page Down, Arrows and Escape (Backspace and Escape keys will only be disabled in Vim GUI mode because terminal emulators receive the same character for \<Ctrl-[> and \<Esc>).
+It will disable the keys: Escape, Backspace, Arrows, +, -, Insert, Delete, Home, End, Page Up and Page Down (the Escape key will not be disabled if Vim is executed in a terminal or on the Windows operating system).
 
 It will also allow you to use hjkl navigation in all Vim modes:
 - **hjkl** in normal mode.
 - \<Alt> + hjkl in Insert Mode, Command Mode, and Terminal Mode (it works in Vim GUI mode but not always when Vim is executed in a terminal. Make sure the terminal does not grab the \<Alt> key).
-
-## Author and license
-
-Copyright (c) [James Cherti](https://www.jamescherti.com).
-
-Distributed under terms of the MIT license.
 
 ## Do you like hjklmode?
 
@@ -38,6 +32,10 @@ You can also install this Vim plugin with any third-party plugin manager such as
 ## How to enable hjklmode by default?
 Add the following variable to "~/.vimrc":
 ```viml
+" Disable the menu bar because it may prevent you from using the Alt key
+set guioptions-=m
+
+" Enable Hjklmode by default
 let g:hjklmode_enabled = 1
 ```
 
@@ -69,3 +67,9 @@ Vim key mappings:
 For more information:
 - :help motion.txt
 - :help search-commands
+
+## Author and license
+
+Copyright (c) [James Cherti](https://www.jamescherti.com).
+
+Distributed under terms of the MIT license.
