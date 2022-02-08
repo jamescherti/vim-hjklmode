@@ -81,6 +81,7 @@ function! s:HjklmodeSetStatus(enabled, buffer_only) abort
 endfunction
 
 function! hjklmode#GetKeyMappings() abort
+  call hjklmode#Init()
   let result = []
   for l:key_mappings_item in s:hjklmode_key_mappings
     for l:mapping_mode in l:key_mappings_item[2]
