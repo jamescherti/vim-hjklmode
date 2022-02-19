@@ -133,22 +133,31 @@ function! hjklmode#Init() abort
   call add(l:key_mappings, [['<A-k>'], '<Up>', ['c', 't']])
   call add(l:key_mappings, [['<A-l>'], '<Right>', ['c', 't']])
 
-  " Escape and Backspace
   if has('gui_running') && !has('win32')
     " Only when gui_running because Escape/Ctrl-[ are the same characters when
     " Vim is executed in a terminal or on Microsoft Windows.
     call add(l:key_mappings, [['<C-[>'], '<Esc>', ['n', 'i', 'v', 't', 's']])
     call add(l:key_mappings, [['<C-[>'], '<C-c>', ['c']])
-    call add(l:key_mappings, [['<Esc>'], '<Nop>', l:all_modes])
   endif
 
-  for l:prefix in ['', 'C-', 'A-', 'S-']
-    call add(l:key_mappings, [['<' . l:prefix . 'Backspace>'] , '<Nop>', l:all_modes])
-  endfor
-
   " Disable mappings
-  call add(l:key_mappings, [['<PageUp>', '<PageDown>', '<Home>', '<Insert>', '<End>', '<Delete>'] , '<Nop>', l:all_modes])
   for l:prefix in ['', 'C-', 'A-', 'S-']
+    if has('gui_running') && !has('win32')
+      call add(l:key_mappings, [['<' . l:prefix . 'Esc>'], '<Nop>', l:all_modes])
+    endif
+
+    call add(l:key_mappings, [['<' . l:prefix . 'Backspace>'] , '<Nop>', l:all_modes])
+
+    call add(l:key_mappings, [
+    \ ['<' . l:prefix .'PageUp>',
+    \  '<' . l:prefix .'PageDown>',
+    \  '<' . l:prefix .'Home>',
+    \  '<' . l:prefix .'Insert>',
+    \  '<' . l:prefix .'End>',
+    \  '<' . l:prefix .'Delete>'],
+    \ '<Nop>',
+    \ l:all_modes])
+
     call add(l:key_mappings, [
     \        ['<' . l:prefix. 'Up>',
     \         '<' . l:prefix. 'Down>',
