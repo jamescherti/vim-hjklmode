@@ -142,16 +142,34 @@ function! hjklmode#Init() abort
     call add(l:key_mappings, [['<Esc>'], '<Nop>', l:all_modes])
   endif
 
-  call add(l:key_mappings, [['<Backspace>'] , '<Nop>', l:all_modes])
+  for l:prefix in ['', 'C-', 'A-', 'S-']
+    call add(l:key_mappings, [['<' . l:prefix . 'Backspace>'] , '<Nop>', l:all_modes])
+  endfor
 
   " Disable mappings
   call add(l:key_mappings, [['<PageUp>', '<PageDown>', '<Home>', '<Insert>', '<End>', '<Delete>'] , '<Nop>', l:all_modes])
-  call add(l:key_mappings, [['<Up>', '<Down>', '<Left>', '<Right>'], '<Nop>', ['n', 'v']])
+  for l:prefix in ['', 'C-', 'A-', 'S-']
+    call add(l:key_mappings, [
+    \        ['<' . l:prefix. 'Up>',
+    \         '<' . l:prefix. 'Down>',
+    \         '<' . l:prefix. 'Left>',
+    \         '<' . l:prefix. 'Right>'],
+    \        '<Nop>',
+    \        ['n', 'v']])
+  endfor
 
   if has('gui_running')
     " Because the key mappings <Alt> + hjkl do not work when Vim is executed
     " in a terminal.
-    call add(l:key_mappings, [['<Up>', '<Down>', '<Left>', '<Right>'], '<Nop>', ['i', 't', 's', 'c']])
+    for l:prefix in ['', 'C-', 'A-', 'S-']
+      call add(l:key_mappings, [
+      \        ['<' . l:prefix. 'Up>',
+      \         '<' . l:prefix. 'Down>',
+      \         '<' . l:prefix. 'Left>',
+      \         '<' . l:prefix. 'Right>'],
+      \         '<Nop>',
+      \         ['i', 't', 's', 'c']])
+    endfor
   endif
 
   call add(l:key_mappings, [['<Up>', '<Down>', '<Left>', '<Right>'], '<Nop>', ['n', 'v']])
