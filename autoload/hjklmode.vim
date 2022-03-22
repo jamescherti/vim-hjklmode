@@ -119,7 +119,7 @@ function! s:MapSetStatus(enabled, buffer_only, mapping_mode, key_sequence1, key_
 endfunction
 
 function! hjklmode#Init() abort
-  let l:all_modes = ['n', 'i', 'v', 't', 's', 'c']
+  let l:all_modes = ['n', 'i', 'v', 's', 'c']
 
   let l:key_mappings = []
 
@@ -133,16 +133,16 @@ function! hjklmode#Init() abort
   call add(l:key_mappings, [['<A-k>'], '<Up>', ['c', 't']])
   call add(l:key_mappings, [['<A-l>'], '<Right>', ['c', 't']])
 
-  if has('gui_running') && !has('win32')
+  if g:hjklmode_disable_escape && has('gui_running') && !has('win32')
     " Only when gui_running because Escape/Ctrl-[ are the same characters when
     " Vim is executed in a terminal or on Microsoft Windows.
-    call add(l:key_mappings, [['<C-[>'], '<Esc>', ['n', 'i', 'v', 't', 's']])
+    call add(l:key_mappings, [['<C-[>'], '<Esc>', ['n', 'i', 'v', 's']])
     call add(l:key_mappings, [['<C-[>'], '<C-c>', ['c']])
   endif
 
   " Disable mappings
   for l:prefix in ['', 'C-', 'A-', 'S-']
-    if has('gui_running') && !has('win32')
+    if g:hjklmode_disable_escape && has('gui_running') && !has('win32')
       call add(l:key_mappings, [['<' . l:prefix . 'Esc>'], '<Nop>', l:all_modes])
     endif
 

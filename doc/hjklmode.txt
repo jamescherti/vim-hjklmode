@@ -10,8 +10,12 @@ License:        MIT
 The Vim plugin hjklmode will help you to break the habit of using the keys
 that make you move your hand away from the touch type position.
 
-It will disable the keys: Escape, Backspace, Arrows, +, -, Insert, Delete,
-Home, End, Page Up and Page Down (the Escape key will not be disabled if Vim is
+It will disable the keys: Backspace, Arrows, +, -, Insert, Delete,
+Home, End, Page Up and Page Down.
+
+Hjklmode will not disable the Escape key by default. The Escape key can be
+disabled with the option `let g:hjklmode_disable_escape = 1` (However, the
+option `g:hjklmode_disable_escape` will be ignored by Hjklmode when Vim is
 executed in a terminal or on the Windows operating system).
 
 It will also allow you to use hjkl in all Vim modes:

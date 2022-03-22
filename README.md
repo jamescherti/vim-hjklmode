@@ -2,15 +2,17 @@
 
 ## Introduction
 
-The Vim plugin hjklmode will help you to **break the habit** of using the keys that make you move your hand away from the touch type position.
+The Vim plugin Hjklmode will help you to **break the habit** of using the keys that make you move your hand away from the touch type position.
 
-It will disable the keys: Escape, Backspace, Arrows, +, -, Insert, Delete, Home, End, Page Up and Page Down (the Escape key will not be disabled if Vim is executed in a terminal or on the Windows operating system).
+It will disable the keys: Backspace, Arrows, +, -, Insert, Delete, Home, End, Page Up and Page Down.
+
+Hjklmode will not disable the Escape key by default. The Escape key can be disabled with the option `let g:hjklmode_disable_escape = 1` (However, the option `g:hjklmode_disable_escape` will be ignored by Hjklmode when Vim is executed in a terminal or on the Windows operating system).
 
 It will also allow you to use hjkl navigation in all Vim modes:
 - **hjkl** in normal mode.
 - \<Alt> + hjkl in Insert Mode, Command Mode, and Terminal Mode (it works in Vim GUI mode but not always when Vim is executed in a terminal. Make sure the terminal does not grab the \<Alt> key).
 
-## Do you like hjklmode?
+## Do you like Hjklmode?
 
 Please [star vim-hjklmode on GitHub](https://github.com/jamescherti/vim-hjklmode).
 
@@ -29,7 +31,7 @@ vim -u NONE -c "helptags vim-hjklmode/doc" -c q
 
 You can also install this Vim plugin with any third-party plugin manager such as Pathogen or Vundle.
 
-## How to enable hjklmode by default?
+## How to enable Hjklmode by default?
 Add the following variable to "~/.vimrc":
 ```viml
 " Disable the menu bar because it may prevent you from using the Alt key
@@ -37,14 +39,18 @@ set guioptions-=m
 
 " Enable Hjklmode by default
 let g:hjklmode_enabled = 1
+
+" It is recommended to not disable the Escape key.
+" Disabling the Escape can cause issues with macros.
+let g:hjklmode_disable_escape = 0
 ```
 
-## How to enable hjklmode manually?
+## How to enable Hjklmode manually?
 ```viml
 :HjklmodeEnable
 ```
 
-## How can I move the cursor, press Escape or Backspace when hjklmode is enabled?
+## How can I move the cursor, press Escape or Backspace when Hjklmode is enabled?
 
 Vim key mappings:
 | Key mapping  | Equivalent to

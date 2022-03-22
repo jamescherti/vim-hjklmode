@@ -25,7 +25,7 @@
 "              OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 "              SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-if exists("loaded_hjklmode")
+if exists('loaded_hjklmode')
   finish
 endif
 let g:loaded_hjklmode = 1
@@ -33,6 +33,8 @@ let g:loaded_hjklmode = 1
 if ! exists('g:hjklmode_enabled')
   let g:hjklmode_enabled = 0
 endif
+
+let g:hjklmode_disable_escape = get(g:, 'hjklmode_disable_escape', 0)
 
 " Init
 if g:hjklmode_enabled
