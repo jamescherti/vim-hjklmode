@@ -182,7 +182,6 @@ function! hjklmode#Init() abort
   endif
 
   call add(l:key_mappings, [['<Up>', '<Down>', '<Left>', '<Right>'], '<Nop>', ['n', 'v']])
-  call add(l:key_mappings, [['+', '-'], '<Nop>', ['n']])
 
   let s:hjklmode_key_mappings = l:key_mappings
   return s:hjklmode_key_mappings
