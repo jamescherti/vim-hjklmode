@@ -177,7 +177,7 @@ function! hjklmode#Init() abort
       \         '<' . l:prefix. 'Left>',
       \         '<' . l:prefix. 'Right>'],
       \         '<Nop>',
-      \         ['i', 't', 's', 'c']])
+      \         ['i', 's', 'c']])
     endfor
   endif
 
