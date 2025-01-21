@@ -1,6 +1,6 @@
 # hjklmode.vim - Add HJKL navigation to all Vim modes!
 
-Copyright (C) 2021-2024 [James Cherti](https://www.jamescherti.com). Distributed under terms of the MIT license.
+Copyright (C) 2021-2025 [James Cherti](https://www.jamescherti.com). Distributed under terms of the MIT license.
 
 ## Introduction
 
