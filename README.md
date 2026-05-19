@@ -57,6 +57,7 @@ let g:hjklmode_disable_escape = 0
 ## How can I move the cursor, press Escape or Backspace when Hjklmode is enabled?
 
 Vim key mappings:
+
 | Key mapping  | Equivalent to
 |--------------|---------------------------------------------------
 | Ctrl-[       | Escape (if you have an American English keyboard)
