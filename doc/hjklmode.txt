@@ -7,7 +7,7 @@ License:        MIT
 ==============================================================================
 1. Introduction                                          *hjklmode-introduction*
 
-Vim’s popularity is largely due to its ability to increase productivity through
+Vim's popularity is largely due to its ability to increase productivity through
 efficient navigation and editing techniques. One such technique is HJKL
 navigation, which allows using the H, J, K, and L keys to move the cursor left,
 down, up, and right. This method of navigation may seem strange at first, but
