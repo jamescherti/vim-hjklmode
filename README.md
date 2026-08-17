@@ -3,6 +3,7 @@
 Vim's popularity is largely due to its ability to increase productivity through efficient navigation and editing techniques. One such technique is HJKL navigation, which allows using the H, J, K, and L keys to move the cursor left, down, up, and right. This method of navigation may seem strange at first, but it is actually a very efficient way to navigate through text and can greatly increase productivity when using Vim.
 
 The Vim plugin **[hjklmode](https://github.com/jamescherti/vim-hjklmode)** can be used to:
+
 - **Learn HJKL navigation:** Hjklmode forces you to learn HJKL navigation as it disables certain keys that require moving the hand away from the Touch Typing position, which can disrupt typing flow. These keys include: Backspace, Arrows, Insert, Delete, Home, End, Page Up and Page Down.
 - **Add HJKL navigation to other modes than Normal Mode:** Hjklmode adds the key mappings \<Alt>+hjkl to Insert Mode, Command Mode, and Terminal Mode.
 
