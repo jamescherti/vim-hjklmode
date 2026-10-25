@@ -1,5 +1,8 @@
 # hjklmode.vim - Add HJKL navigation to all Vim modes!
 
+- Author: James Cherti <[https://www.jamescherti.com/](https://www.jamescherti.com/)>
+- License: MIT
+
 Vim's popularity is largely due to its ability to increase productivity through efficient navigation and editing techniques. One such technique is HJKL navigation, which allows using the H, J, K, and L keys to move the cursor left, down, up, and right. This method of navigation may seem strange at first, but it is actually a very efficient way to navigate through text and can greatly increase productivity when using Vim.
 
 The Vim plugin **[hjklmode](https://github.com/jamescherti/vim-hjklmode)** can be used to:
